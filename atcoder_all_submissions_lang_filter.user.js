@@ -19,6 +19,9 @@ $(function() {
 
   const button = addButton();
   const modal = addModal();
+
+  const langOptionMap = buildLangOptionMap();
+  const selectList = addLangOptionToSelectList(langOptionMap);
 })();
 
 function addButton() {
@@ -50,4 +53,40 @@ function addModal() {
       </div>
     </div>`;
   $('body').prepend(modalHtml);
+}
+
+function buildLangOptionMap() {
+  const $selectLanguage = $('#select-language');
+  const langOptionMap = new Map(); // {lang: [value, label]}
+
+  $selectLanguage.children('option').each(function(i, e) {
+    const $option = $(e);
+
+    langOptionMap.set(
+      $option.text(),
+      [
+        $option.attr('value'),
+        $option.attr('label'),
+      ]
+    );
+
+    $(this).remove();
+  });
+
+  return langOptionMap;
+}
+
+function addLangOptionToSelectList(langOptionMap) {
+  const $langFilterSelect = $('select#submissionsLangFilterMultipleSelect');
+
+  langOptionMap.forEach(function(value, key) {
+    $langFilterSelect.append(
+      $('<option>', {
+        value: value[0],
+        text: key,
+      })
+    );
+  });
+
+  return $langFilterSelect;
 }
