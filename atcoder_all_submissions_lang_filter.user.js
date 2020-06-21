@@ -10,7 +10,16 @@
 // @grant        none
 // ==/UserScript==
 
-window.onload = function(){
-    console.log("UserScript test");
-    alert("UserScriptが有効です。")
+// See:
+// https://greasyfork.org/ja/scripts/398148-atcoder-language-filter
+// https://greasyfork.org/ja/scripts/390514-autosubmissionssettings-js
+$(function() {
+  'use strict';
+
+  const button = addButton();
+})();
+
+function addButton() {
+  const buttonHtml = `<p><button type="button" class="btn btn-default btn-sm btn-auto-height" data-toggle="modal" data-target="#SubmissionsLangFilterModal">言語の選択</button></p>`;
+  $('form').append(buttonHtml);
 }
